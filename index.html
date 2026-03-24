@@ -2,68 +2,222 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>My Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<title>Hacker Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
 <style>
 body{
   margin:0;
-  font-family:Poppins;
-  background:#0f172a;
-  color:white;
-}
-
-header{
-  display:flex;
-  justify-content:space-between;
-  padding:20px 50px;
-}
-
-nav a{
-  color:white;
-  margin:0 15px;
-  text-decoration:none;
-}
-
-.hero{
-  height:90vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
+  background:black;
+  color:red;
+  font-family:'Share Tech Mono', monospace;
+  overflow:hidden;
   text-align:center;
 }
 
-.hero h1{
-  font-size:50px;
+/* CLICK LIGHT EFFECT */
+body:active{
+  background:#050000;
 }
 
+/* canvas */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:-1;
+}
+
+/* SIDEBAR */
+.sidebar{
+  position:fixed;
+  left:0;
+  top:0;
+  width:220px;
+  height:100%;
+  background:#000;
+  border-right:2px solid red;
+  padding-top:40px;
+  text-align:left;
+}
+
+.sidebar h2{
+  color:red;
+  padding-left:20px;
+}
+
+.sidebar a{
+  display:block;
+  color:white;
+  padding:10px 20px;
+  text-decoration:none;
+  transition:0.3s;
+}
+
+.sidebar a:hover{
+  background:red;
+  color:black;
+  box-shadow:0 0 10px red;
+}
+
+/* MAIN */
+.container{
+  margin-left:240px;
+}
+
+/* NAME */
+.name{
+  font-size:50px;
+  font-weight:bold;
+  color:#ff0000;
+  text-shadow:0 0 20px red,0 0 40px red;
+}
+
+/* glitch */
+.glitch{
+  animation:glitch 0.5s infinite;
+}
+@keyframes glitch{
+  0%{text-shadow:2px 0 red;}
+  25%{text-shadow:-2px 0 white;}
+  50%{text-shadow:2px 2px red;}
+  75%{text-shadow:-2px -2px white;}
+  100%{text-shadow:2px 0 red;}
+}
+
+/* sections */
+section{
+  padding:100px 20px;
+  min-height:100vh;
+}
+
+/* SKILL BAR */
+.skill{
+  width:60%;
+  margin:10px auto;
+  background:#111;
+  border:1px solid red;
+}
+
+.skill-bar{
+  height:20px;
+  background:red;
+  text-align:right;
+  padding-right:5px;
+  color:black;
+  font-size:12px;
+}
+
+/* button */
 .btn{
-  padding:12px 25px;
-  background:#38bdf8;
-  border:none;
+  display:inline-block;
   margin-top:20px;
-  cursor:pointer;
+  padding:10px 20px;
+  border:1px solid red;
+  color:red;
+  text-decoration:none;
+}
+
+.btn:hover{
+  background:red;
+  color:black;
+  box-shadow:0 0 15px red;
+}
+
+/* smooth scroll */
+html{
+  scroll-behavior:smooth;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <h2>MyBrand</h2>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Projects</a>
-  </nav>
-</header>
+<canvas id="matrix"></canvas>
 
-<section class="hero">
-  <h1>I am a Professional Developer</h1>
-  <p>I build modern and powerful websites</p>
-  <button class="btn">Hire Me</button>
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>MENU</h2>
+  <a href="#home">HOME</a>
+  <a href="#about">ABOUT</a>
+  <a href="#skills">SKILLS</a>
+  <a href="#contact">CONTACT</a>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+
+<section id="home">
+  <h1 class="glitch">SYSTEM BREACHED</h1>
+  <div class="name">IBNA SIYAM</div>
 </section>
+
+<section id="about">
+  <h2>About Me</h2>
+  <p>I am a dark web style developer 😈</p>
+  <img src="https://i.ibb.co/4pDNDk1/hacker.png" width="200">
+</section>
+
+<section id="skills">
+  <h2>Skills</h2>
+
+  <p>HTML</p>
+  <div class="skill"><div class="skill-bar" style="width:90%">90%</div></div>
+
+  <p>CSS</p>
+  <div class="skill"><div class="skill-bar" style="width:85%">85%</div></div>
+
+  <p>JavaScript</p>
+  <div class="skill"><div class="skill-bar" style="width:75%">75%</div></div>
+
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <a class="btn" href="https://facebook.com/YOUR_ID" target="_blank">Facebook</a>
+  <p>Email: your@email.com</p>
+</section>
+
+</div>
+
+<script>
+let canvas = document.getElementById("matrix");
+let ctx = canvas.getContext("2d");
+
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+
+let letters = "01#$%&@";
+letters = letters.split("");
+
+let fontSize = 14;
+let columns = canvas.width / fontSize;
+
+let drops = [];
+for(let x = 0; x < columns; x++)
+  drops[x] = 1;
+
+function draw(){
+  ctx.fillStyle = "rgba(0,0,0,0.08)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  ctx.fillStyle = "red";
+  ctx.font = fontSize + "px monospace";
+
+  for(let i = 0; i < drops.length; i++){
+    let text = letters[Math.floor(Math.random()*letters.length)];
+    ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+
+    if(drops[i]*fontSize > canvas.height && Math.random() > 0.97)
+      drops[i] = 0;
+
+    drops[i] += 1.5;
+  }
+}
+
+setInterval(draw, 30);
+</script>
 
 </body>
 </html>
